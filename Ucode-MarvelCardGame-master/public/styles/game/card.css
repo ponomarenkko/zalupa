@@ -1,0 +1,147 @@
+.card {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-end;
+    height: 200px;
+    width: 130px;
+    position: relative;
+    padding: 10px 14px;
+    background-color: rgba(var(--bg-tertiary), 1);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--border-radius-md);
+    transition: all .5s ease;
+}
+
+.card.revealed {
+    cursor: pointer;
+}
+
+.card:not(:first-child) {
+    margin-left: calc(-1 * (130px - 80px));
+}
+
+.card.played {
+    margin: 10px;
+}
+
+.card > div:not(:first-child) {
+    margin-top: 3px;
+}
+
+.card.revealed > .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: -10px;
+    left: -10px;
+    border-radius: 13px;
+    background-color: rgba(var(--color-cost), 1);
+    border: 3px solid rgba(var(--bg-primary), 1);
+    color: rgba(var(--color-white), 1);
+    font-size: 13px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.card.revealed > .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.card.revealed .card-attack,
+.card.revealed .card-defense {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: white;
+    font-weight: 600;
+    user-select: none;
+}
+
+
+.card.revealed .card-attack {
+    margin: 0 0 -10px -14px;
+    background-color: rgba(var(--color-attack), 1);
+}
+
+.card.revealed .card-defense {
+    margin: 0 -14px -10px 0;
+    background-color: rgba(var(--color-defense), 1);
+}
+
+.card > .card-body {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.card.revealed .card-alias {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 600;
+    color: rgba(var(--color-white-dull), 1);
+    text-align: center;
+    user-select: none;
+}
+
+.card.hidden .card-img {
+    width: 100%;
+    height: 100%;
+}
+
+.card.revealed .card-img {
+    width: 90px;
+    height: 120px;
+    margin: 5px auto 0;
+    border-radius: var(--border-radius-lg);
+    border: 3px solid rgba(var(--bg-primary), 1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.card .card-img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+}
+
+.card.revealed:hover {
+    transform: translate(-55px, -20px);
+    transition: all .5s ease;
+}
+
+.card.revealed:last-child:hover {
+    transform: translateY(-20px);
+}
+
+.card.revealed.played:hover {
+    transform: translateY(-20px);
+    transition: all .5s ease;
+}
+
+.card.attacker-card {
+    box-shadow: 0 0 20px 0 rgba(var(--color-attack), 1);
+}
+
+.card.target-card {
+    box-shadow: 0 0 20px 0 rgba(var(--color-defense), 1);
+}
+
+.card.available-card {
+    box-shadow: 0 0 20px 0 rgba(var(--color-available), 1);
+}

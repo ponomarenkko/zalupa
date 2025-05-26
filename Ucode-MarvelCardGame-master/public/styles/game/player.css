@@ -1,0 +1,81 @@
+.player-outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    flex: 0 0 100px;
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    width: 100px;
+    height: 150px;
+}
+
+.player-label {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.player-nickname {
+    width: 100%;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    color: rgba(var(--color-white-dull), 1);
+    text-shadow: var(--shadow-text);
+}
+
+.player-body {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    position: relative;
+    user-select: none;
+}
+
+.player-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    bottom: -10px;
+    right: -10px;
+    border-radius: 15px;
+    background-color: rgba(var(--color-health), 1);
+    border: 4px solid rgba(var(--bg-secondary), 1);
+    color: rgba(var(--color-white), 1);
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.player-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-lg);
+    border: 3px solid rgba(var(--bg-primary), 1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.player-avatar > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .3s ease;
+}
+
+.player-avatar > img:hover {
+    transform: scale(1.1);
+    transition: all .3s ease;
+}
+
+.target-card {
+    box-shadow: 0 0 20px 0 rgba(var(--color-defense), 1);
+}

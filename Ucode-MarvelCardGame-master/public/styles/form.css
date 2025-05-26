@@ -1,0 +1,123 @@
+@import "_base.css";
+@import "_vars.css";
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(var(--bg-primary), 1);
+}
+
+.form-container--inner {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    width: 450px;
+    padding: 40px 50px;
+    border-radius: var(--border-radius-lg);
+    background-color: rgba(var(--bg-secondary), 1);
+    box-shadow: var(--shadow-lg);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-item {
+    width: 100%;
+}
+
+.form-item:not(:first-child),
+.form-submit-btn {
+    margin-top: 25px;
+}
+
+.form-input {
+    width: 100%;
+    height: 50px;
+    padding: 14px 18px;
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(var(--bg-tertiary), .5);
+    transition: all .3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(var(--color-white), 1);
+}
+
+.form-input:not(:first-child) {
+    margin-top: 20px;
+}
+
+.form-input:hover {
+    box-shadow: var(--shadow-md);
+    transition: all .3s ease;
+}
+
+.form-input::placeholder {
+    color: rgba(var(--color-white), .5);
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-header--text {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(var(--color-white), 1);
+    text-shadow: var(--shadow-text);
+    text-align: center;
+    user-select: none;
+}
+
+.form-header--text.text-sm {
+    font-size: 24px;
+}
+
+.form-submit-btn {
+    width: 100%;
+    background-color: rgba(var(--bg-featured), .8);
+}
+
+.notify {
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.notify--success {
+    opacity: 1;
+    color: rgb(43, 156, 43);
+    transition: all .3s ease;
+}
+
+.notify--error {
+    opacity: 1;
+    color: rgba(var(--bg-featured), 1);
+    transition: all .3s ease;
+}
+
+.avatar-form-container {
+    margin-top: 20px;
+}

@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;0,900;1,300;1,400;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap", rel="stylesheet")
+        link(rel="stylesheet", href="/styles/form.css")
+        title Start the Game
+    body 
+        .main-container.page-animation
+            .avatar-form-container
+                .form-container--inner
+                    .form-header.form-item
+                        span.form-header--text.text-sm Change your avatar
+                    form.avatar-form.form.form-item
+                        input.form-input(id="avatar", type="file", name="avatar", placeholder="Select an avatar")
+                        button(type="button").form-item.upload-btn.btn.top-20 Submit
+                    .notify.form-item
+            .start-container
+                .link-container
+                    a.link-text(href="/logout") Logout 
+                .start-menu.left-20
+                    button.btn Start the Game
+
+    script(src="/socket.io/socket.io.js")
+    script(src="scripts/start-game.js" type="module")
+    script(src="scripts/avatar-upload.js" type="module")

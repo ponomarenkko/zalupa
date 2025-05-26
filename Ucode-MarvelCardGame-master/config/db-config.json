@@ -1,0 +1,27 @@
+{
+    "development": {
+        "host": "localhost",
+        "user": "vasya",
+        "password": "123",
+        "database": "race01",
+        "dialect": "mysql",
+        "pool": {
+            "max": 10,
+            "min": 0,
+            "acquire": 30000
+        }
+    },
+    "test": {
+        "host": "localhost",
+        "user": "root",
+        "password": "1",
+        "database": "race01_test",
+        "dialect": "mysql",
+        "pool": {
+            "max": 10,
+            "min": 0,
+            "acquire": 30000
+        }
+    },
+    "production": {}
+}

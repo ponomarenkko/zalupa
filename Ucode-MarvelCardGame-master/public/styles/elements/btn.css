@@ -1,0 +1,31 @@
+/* Universal button styling */
+
+.btn {
+    display: inline-block;
+    min-width: 150px;
+    min-height: 40px;
+    padding: 16px;
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(var(--bg-featured), 1);
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(var(--color-white-dull), 1);
+    transition: all .3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-btn);
+    transition: all .3s ease;
+}
+
+.btn:focus,
+.btn[disabled] {
+    background-color: rgba(var(--bg-featured), .6);
+    transition: all .3s ease;
+}
+
+.btn[disabled] {
+    pointer-events: none;
+}
