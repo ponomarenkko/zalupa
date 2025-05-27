@@ -3,53 +3,55 @@ include mixins/card
 
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Marvel Heroes Game
-        link(rel="preconnect", href="https://fonts.googleapis.com")
-        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-        link(href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;0,900;1,300;1,400;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap", rel="stylesheet")
-        link(rel="stylesheet", href="/styles/game/index.css")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Marvel Heroes Game
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;0,900;1,300;1,400;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/game/index.css")
 
-    body 
+  body 
+    .overlay(hidden).page-animation
+      p.overlay-heading
+      p.overlay-text
 
-        .overlay(hidden).page-animation
-                p.overlay-heading
-                p.overlay-text
-        .game-container.page-animation
-            .game-container--inner
-                .opponent-container
-                    .sidebar-item.giveup-container
-                        button(type="button").giveup-btn.btn Give up
-                    .inner
-                        .card-container
-                    .sidebar-item.turn-time
-                        span.time-text Time remaining: 
-                        span.turn-timer
-                .game-field-container
-                    .sidebar-item
-                    .game-field.inner
-                        .opponent-field                     
-                        .player-field
-                    .sidebar-item.turn-container
-                        .game-deck.opponent-deck
-                        .turn-submit 
-                            button(type="button").turn-submit-btn.btn End turn
-                        .game-deck.player-deck
-                .player-container 
-                    .sidebar-item.mana-progress-container
-                        span.mana-text Mana
-                        span.mana-count
-                        .mana-progress 
-                            .mana-progress-bar
-                    .inner 
-                        .card-container
-                    .sidebar-item
-        
-        +player-template
-        +card-template
+    .game-container.page-animation
+      .game-container--inner
+        .opponent-container
+          .sidebar-item.giveup-container
+            button(type="button").giveup-btn.btn Give up
+          .inner
+            .card-container
+          .sidebar-item.turn-time
+            span.time-text Time remaining: 
+            span.turn-timer
 
-        script(src="/socket.io/socket.io.js")
-        script(src="scripts/game.js" type="module") 
+        .game-field-container
+          .sidebar-item
+          .game-field.inner
+            .opponent-field                     
+            .player-field
+          .sidebar-item.turn-container
+            .game-deck.opponent-deck
+            .turn-submit 
+              button(type="button").turn-submit-btn.btn End turn
+            .game-deck.player-deck
+
+        .player-container 
+          .sidebar-item.mana-progress-container
+            span.mana-text Mana
+            span.mana-count
+            .mana-progress 
+              .mana-progress-bar
+          .inner 
+            .card-container
+          .sidebar-item
+
+    +player-template
+    +card-template
+
+    script(src="/socket.io/socket.io.js")
+    script(src="scripts/game.js" type="module")
