@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import initializeDatabase from "./models/init.js";
-import { checkIfLoggedIn, authenticateToken } from "./middleware/auth.js";
+import { checkIfLoggedIn, authenticateToken } from "./auth/auth_file_upload.js";
 
 import loginRoutes from "./routes/login.js";
 import registerRoutes from "./routes/register.js";
