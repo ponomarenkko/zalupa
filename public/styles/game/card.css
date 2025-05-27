@@ -31,7 +31,7 @@
 /* 2. Стили для “лицевой” стороны (face-up) */
 .card.revealed {
     /* если нужно, можно переопределить background-color */
-    background-color: rgba(var(--bg-tertiary), 1);
+    background: url("../../assets/background/faceup.png");
 }
 
 /* …далее без изменений ваш существующий CSS… */
