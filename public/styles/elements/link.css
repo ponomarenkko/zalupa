@@ -1,0 +1,17 @@
+/* Universal link styling */
+
+.link-container > .link-label,
+.link-container > .link-text,
+.notify {
+    font-size: 16px;
+}
+
+.link-container > .link-label {
+    color: rgba(var(--color-white), .5);
+    user-select: none;
+}
+
+.link-container > .link-text {
+    margin-left: 6px;
+    color: rgba(var(--color-white), .8);
+}

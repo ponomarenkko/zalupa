@@ -1,0 +1,223 @@
+.sidebar-item {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 0;
+    align-items: flex-start;
+    padding: 0 40px;
+}
+
+.game-deck {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.player-deck-card,
+.opponent-deck-card {
+    position: relative;
+    transform: rotateZ(-270deg) translateY(-35px);
+    transition: all .3s ease;
+}
+
+.player-deck-card:hover,
+.opponent-deck-card:hover {
+    background-color: rgba(var(--bg-tertiary), .5);
+    box-shadow: 0px 0px 20px 0px rgba(var(--bg-tertiary), .5);;
+    transition: all .3s ease;
+}
+
+.deck-card-count {
+    display: inline-block;
+    position: absolute;
+    transform: rotateZ(270deg) translateX(calc(17.5px + 50%));
+    text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(var(--color-white-dull), 1);
+    text-shadow: var(--shadow-text);
+    transition: all .3s ease;
+}
+.sidebar-item {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 0;
+    align-items: flex-start;
+    padding: 0 40px;
+}
+
+.game-deck {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.player-deck-card,
+.opponent-deck-card {
+    position: relative;
+    transform: rotateZ(-270deg) translateY(-35px);
+    transition: all .3s ease;
+}
+
+.player-deck-card:hover,
+.opponent-deck-card:hover {
+    background-color: rgba(var(--bg-tertiary), .5);
+    box-shadow: 0px 0px 20px 0px rgba(var(--bg-tertiary), .5);;
+    transition: all .3s ease;
+}
+
+.deck-card-count {
+    display: inline-block;
+    position: absolute;
+    transform: rotateZ(270deg) translateX(calc(17.5px + 50%));
+    text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(var(--color-white-dull), 1);
+    text-shadow: var(--shadow-text);
+    transition: all .3s ease;
+}
+
+.deck-card-count.hidden {
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.turn-time {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    width: 100%;
+    user-select: none;
+}
+
+.turn-time > span, .mana-text, .mana-count {
+    display: block;
+    font-size: 36px;
+    font-weight: 600;
+    color: rgba(var(--bg-featured), 1);
+    text-shadow: var(--shadow-text);
+}
+
+.turn-time > .turn-timer {
+    opacity: .7;
+    font-weight: 500;
+}
+
+.turn-container, .giveup-container {
+    width: 100%;
+    justify-content: center;
+}
+
+.turn-submit {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mana-progress-container {
+    justify-content: flex-end;
+    user-select: none;
+}
+
+.mana-progress {
+    width: 100%;
+    height: 10px;
+    margin-top: 16px;
+    border-radius: 18px;
+    background-color: rgba(var(--bg-secondary), 1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.mana-progress:hover {
+    opacity: 0.8;
+    transition: all .3s ease;
+}
+
+.mana-progress-bar {
+    width: 0;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    background-color: rgba(var(--bg-featured), 1);
+}
+
+.mana-text, .mana-count {
+    font-size: 30px;
+    opacity: .7;
+    font-weight: 500;
+}
+.deck-card-count.hidden {
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.turn-time {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    width: 100%;
+    user-select: none;
+}
+
+.turn-time > span, .mana-text, .mana-count {
+    display: block;
+    font-size: 36px;
+    font-weight: 600;
+    color: rgba(var(--bg-featured), 1);
+    text-shadow: var(--shadow-text);
+}
+
+.turn-time > .turn-timer {
+    opacity: .7;
+    font-weight: 500;
+}
+
+.turn-container, .giveup-container {
+    width: 100%;
+    justify-content: center;
+}
+
+.turn-submit {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mana-progress-container {
+    justify-content: flex-end;
+    user-select: none;
+}
+
+.mana-progress {
+    width: 100%;
+    height: 10px;
+    margin-top: 16px;
+    border-radius: 18px;
+    background-color: rgba(var(--bg-secondary), 1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.mana-progress:hover {
+    opacity: 0.8;
+    transition: all .3s ease;
+}
+
+.mana-progress-bar {
+    width: 0;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    background-color: rgba(var(--bg-featured), 1);
+}
+
+.mana-text, .mana-count {
+    font-size: 30px;
+    opacity: .7;
+    font-weight: 500;
+}

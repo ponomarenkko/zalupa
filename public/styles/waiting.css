@@ -1,0 +1,50 @@
+@import "_base.css";
+
+.waiting-text {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(var(--color-white), 1);
+    text-shadow: var(--shadow-text);
+    text-align: center;
+    user-select: none;
+}
+
+.loader {
+    margin-top: 30px;
+    width: 140px;
+    height: 140px;
+    position: relative;
+}
+
+.loader_shape_1, .loader_shape_2 {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   top: 0;
+   border-radius: 50%;
+   border: 6px solid rgba(var(--bg-featured), 1);
+   border-right-color: transparent;
+   border-left-color: transparent;
+   border-top-color: transparent;
+}
+
+.loader_shape_1 {
+   animation: loading 1s ease infinite;
+}
+
+.loader_shape_2 {
+   animation: loading 1s linear infinite;
+   opacity: .4;
+}
+
+@keyframes loading {
+
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
