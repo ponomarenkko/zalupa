@@ -1,70 +1,78 @@
 import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
-import initialize from "./models/init.js";
+import initializeDatabase from "./models/init.js";
 import { checkIfLoggedIn, authenticateToken } from "./middleware/auth.js";
-import loginRouter from "./routes/login.js";
-import registerRouter from "./routes/register.js";
-import uploadRouter from "./routes/avatar-upload.js";
-import gameRouter from "./routes/game.js";
-import logoutRouter from "./routes/logout.js";
+
+import loginRoutes from "./routes/login.js";
+import registerRoutes from "./routes/register.js";
+import uploadRoutes from "./routes/avatar-upload.js";
+import gameRoutes from "./routes/game.js";
+import logoutRoutes from "./routes/logout.js";
+
 import db from "./models/index.js";
-import http from 'http';
+import http from "http";
+import { Server } from "socket.io";
+import socketHandler from "./socket.js";
 
 const app = express();
-const port = 3000;
 const host = "localhost";
-const viewPath = path.join("public", "views");
-const isDev = process.env.NODE_ENV !== "test";
+const port = 3000;
 
-const server = http.createServer(app);
-import { Server } from 'socket.io';
-const io = new Server(server);
-import ioHandler from "./socket.js";
-io.on('connection', ioHandler.bind(io));
+const viewsDirectory = path.join("public", "views");
+const isDevelopment = process.env.NODE_ENV !== "test";
 
-if (isDev) {
-    initialize()
-        .catch(err => console.error(err));
+// Setup HTTP and WebSocket server
+const httpServer = http.createServer(app);
+const io = new Server(httpServer);
+
+// Attach socket handler to socket.io
+io.on("connection", socketHandler.bind(io));
+
+// Initialize database only if not in test environment
+if (isDevelopment) {
+    initializeDatabase().catch((err) => console.error("DB Initialization Error:", err));
 }
 
+// Set view engine and directory
 app.set("view engine", "pug");
-app.set("views", path.resolve(viewPath));
+app.set("views", path.resolve(viewsDirectory));
 
+// Middleware stack
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({extended: true}));
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve("public")));
 
-app.get('/', authenticateToken, (req, res) => {
-    res.render(path.resolve(viewPath, 'index.pug'));
+// Routes
+app.get("/", authenticateToken, (req, res) => {
+    res.render(path.resolve(viewsDirectory, "index.pug"));
 });
 
-app.use('/login', checkIfLoggedIn, loginRouter);
-app.use('/register', checkIfLoggedIn, registerRouter);
-app.use('/avatar-upload', authenticateToken, uploadRouter);
-app.use('/game', authenticateToken, gameRouter);
-app.use('/logout', authenticateToken, logoutRouter);
+app.use("/login", checkIfLoggedIn, loginRoutes);
+app.use("/register", checkIfLoggedIn, registerRoutes);
+app.use("/avatar-upload", authenticateToken, uploadRoutes);
+app.use("/game", authenticateToken, gameRoutes);
+app.use("/logout", authenticateToken, logoutRoutes);
 
-app.get('/waiting', authenticateToken, (req, res) => {
-    res.render(path.resolve(viewPath, 'waiting.pug'));
+app.get("/waiting", authenticateToken, (req, res) => {
+    res.render(path.resolve(viewsDirectory, "waiting.pug"));
 });
 
+// Catch-all route for 404s
 app.all("*", (req, res) => {
-    res.render(path.resolve(viewPath, "404.pug"));
+    res.status(404).render(path.resolve(viewsDirectory, "404.pug"));
 });
 
-if (isDev) {
-
-    server.listen(port, host, () => {
-        console.log(`App running at port: ${port}, host: ${host}.\n`);
+// Start server in development mode and clean up on exit
+if (isDevelopment) {
+    httpServer.listen(port, host, () => {
+        console.log(`Server is live at http://${host}:${port}`);
     });
-    
+
     process.on("exit", async () => {
         await db.sequelize.close();
-    })
-
+    });
 }
 
 export default app;

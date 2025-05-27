@@ -1,128 +1,147 @@
 import Game from "./game/Game.js";
 import Player from "./game/Player.js";
 import db from "./models/index.js";
+
 const User = db.sequelize.models.user;
 
-var findOpp = [];
-var pairs = [];
+// Queue for players waiting for a match
+let waitingQueue = [];
 
-function findSocketId(sockets, id) { //sockets = io.of('/').sockets
-    for (let s of sockets) {
-        var get = s[1].handshake.headers.referer;
-        var param = {};
-        var index = get.indexOf('?');
-        if (index !== -1) {
-            var tmp = [];
-            var tmp2 = [];
+// Active player pairs [player1Id, player2Id, initializedUserObject]
+let activePairs = [];
 
-            tmp = get.substring(index + 1).split('&');
-            for (let i = 0; i < tmp.length; i++) {
-                tmp2 = tmp[i].split('=');
-                param[tmp2[0]] = tmp2[1];
-            }
+/**
+ * Finds the socket ID associated with a user ID.
+ * @param {Map} sockets - Collection of all active sockets.
+ * @param {string} userId - User's unique ID.
+ * @returns {string|null} - Socket ID or null if not found.
+ */
+function extractSocketId(sockets, userId) {
+    for (const [_, socket] of sockets) {
+        const refererUrl = socket.handshake.headers.referer;
+        const queryStart = refererUrl.indexOf('?');
 
-            if (param.id === id) {
-                return s[1].id;
+        if (queryStart !== -1) {
+            const queryString = refererUrl.slice(queryStart + 1);
+            const params = Object.fromEntries(
+                queryString.split('&').map(part => part.split('='))
+            );
+
+            if (params.id === userId) {
+                return socket.id;
             }
         }
-    
     }
+    return null;
 }
 
-function findOppId(id) {
-    let pair = findPair(id);
-    return pair[0] !== id ? pair[0] : pair[1];
+/**
+ * Retrieves the ID of the opponent in a pair.
+ * @param {string} userId - User's ID.
+ * @returns {string|null} - Opponent's ID or null.
+ */
+function getOpponentId(userId) {
+    const match = getPair(userId);
+    return match ? (match[0] === userId ? match[1] : match[0]) : null;
 }
 
-function findPair(id) {
-    return pairs.find((pair) => {
-        if (pair[0] === id || pair[1] === id) {
-            return true;
-        }
-        return false;
-    });
+/**
+ * Finds a pair of users that includes the given ID.
+ * @param {string} userId
+ * @returns {Array|null}
+ */
+function getPair(userId) {
+    return activePairs.find(([a, b]) => a === userId || b === userId);
 }
 
-async function getInfo(id) {
-    let obj = {
-        id: id,
-        oppId: findOppId(id)
+/**
+ * Fetches user and opponent data from the database.
+ * @param {string} userId
+ * @returns {Promise<Object>} - Object containing both users' info.
+ */
+async function fetchUserInfo(userId) {
+    const opponentId = getOpponentId(userId);
+
+    const [user, opponent] = await Promise.all([
+        User.findOne({ where: { id: userId } }).catch(console.error),
+        User.findOne({ where: { id: opponentId } }).catch(console.error)
+    ]);
+
+    return {
+        id: userId,
+        nickname: user?.nickname,
+        oppId: opponentId,
+        oppNickname: opponent?.nickname
     };
-
-    let user = await User.findOne({
-        where: {
-            id: obj.id
-        }
-    }).catch(err => console.log(err));
-
-    obj.nickname = user.nickname;
-
-    user = await User.findOne({
-        where: {
-            id: obj.oppId
-        }
-    }).catch(err => console.log(err));
-
-    obj.oppNickname = user.nickname;
-
-    return obj;
 }
 
-async function initGame(user1, user2) {
+/**
+ * Initializes a game instance between two players.
+ * @param {Object} playerData1 - First player's data and socket.
+ * @param {Object} playerData2 - Second player's data and socket.
+ * @returns {Promise<Game>} - Game instance.
+ */
+async function setupGame(playerData1, playerData2) {
+    const p1 = new Player(playerData1, playerData2.socket);
+    const p2 = new Player(playerData2, playerData1.socket);
 
-    let player1 = new Player(user1, user2.socket);
-    let player2 = new Player(user2, user1.socket);
-    let players = [ player1, player2 ];
-    
-    let promises = [];
-    players.forEach(player => {
-        promises.push(player.init());
-    });
-    await Promise.all(promises);
+    await Promise.all([p1.init(), p2.init()]);
 
-    return new Game(player1, player2);
-
+    return new Game(p1, p2);
 }
 
+/**
+ * Main export function that attaches event handlers to a socket.
+ * @param {Socket} socket - Current socket connection.
+ */
 export default function (socket) {
-    var io = this;
-    console.log('Connected ' + socket.id);
+    const io = this;
+    console.log(`User connected: ${socket.id}`);
 
-    socket.on('startGame', function(data) {
-        if (findOpp.length !== 0) {
-            let oppId = findOpp.shift();
-            pairs.push([data.id, oppId, null]);
-            io.to(findSocketId(io.of('/').sockets, data.id)).emit('startGame');
-            io.to(findSocketId(io.of('/').sockets, oppId)).emit('startGame');
+    // Handle game start request
+    socket.on('startGame', (data) => {
+        if (waitingQueue.length > 0) {
+            const opponentId = waitingQueue.shift();
+            activePairs.push([data.id, opponentId, null]);
+
+            const socketA = extractSocketId(io.of('/').sockets, data.id);
+            const socketB = extractSocketId(io.of('/').sockets, opponentId);
+
+            io.to(socketA).emit('startGame');
+            io.to(socketB).emit('startGame');
+        } else {
+            waitingQueue.push(data.id);
+            const socketId = extractSocketId(io.of('/').sockets, data.id);
+            io.to(socketId).emit('waiting');
         }
-        else {
-            findOpp.push(data.id);
-            io.to(findSocketId(io.of('/').sockets, data.id)).emit('waiting');
-        }
     });
 
-    socket.on('initGame', function(data) {
-        getInfo(data.id)
-        .then(user => {
-            var pair = findPair(data.id);
-            if (pair[2]) {
-                user.socket = socket;
-                return initGame(user, pair[2]);
-            }
-            else {
-                user.socket = socket;
-                pair[2] = user;
-                return null;
-            }
-        })
-        .catch(err => console.error(err));
+    // Handle game initialization once both players are ready
+    socket.on('initGame', (data) => {
+        fetchUserInfo(data.id)
+            .then(user => {
+                const match = getPair(data.id);
+                if (match) {
+                    if (match[2]) {
+                        user.socket = socket;
+                        return setupGame(user, match[2]);
+                    } else {
+                        user.socket = socket;
+                        match[2] = user;
+                    }
+                }
+            })
+            .catch(console.error);
     });
 
-    socket.on('gameOver', function(data) {
-        pairs = pairs.filter(pair => pair[0] !== data.id && pair[1] !== data.id);
+    // Handle game end by removing the pair from active matches
+    socket.on('gameOver', (data) => {
+        activePairs = activePairs.filter(([a, b]) => a !== data.id && b !== data.id);
     });
 
-    socket.on('disconnect', function() {
-        console.log('Disconnected ' + socket.id);
+    // Handle client disconnection
+    socket.on('disconnect', () => {
+        console.log(`User disconnected: ${socket.id}`);
     });
 }
+
