@@ -4,29 +4,44 @@ import db from "../models/index.js";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../const.js";
 
-const User = db.sequelize.models.user;
+const UserModel = db.sequelize.models.user;
 
-async function uploadController (req, res) {
+/**
+ * Controller to handle avatar upload and update for the logged-in user.
+ * @param {Object} req - Express request object, expects file info and cookies.
+ * @param {Object} res - Express response object for sending back results.
+ */
+async function uploadController(req, res) {
+  // Check if a file was provided in the request
+  if (!req.file) {
+    return res.json({ type: "error", text: "Please select a file to upload." });
+  }
 
-    if (req.file === undefined) {
-        return res.json({ text: "Choose a file to upload.", type: "error" });
-    }
-    const decoded = jwt.verify(req.cookies.token, TOKEN_SECRET);
+  try {
+    // Verify and decode JWT token from cookies to get user info
+    const userData = jwt.verify(req.cookies.token, TOKEN_SECRET);
 
-    const filePath = path.resolve("public/uploads", req.file.filename);
+    // Construct absolute path to the uploaded file
+    const uploadedFilePath = path.resolve("public/uploads", req.file.filename);
 
-    User.update(
-        { avatar: fs.readFileSync(filePath) },
-        { where: { id: decoded.id } }
-    )
-        .then(() => {
-            
-            fs.rmSync(filePath);
-            res.json({ text: "Avatar changed successfully.", type: "success" })
-            
-        })
-        .catch(err => res.json({ text: err, type: "error" }));
+    // Read the file content to store in the database
+    const avatarData = fs.readFileSync(uploadedFilePath);
 
+    // Update the user's avatar in the database
+    await UserModel.update(
+      { avatar: avatarData },
+      { where: { id: userData.id } }
+    );
+
+    // Remove the temporary file from the server after successful update
+    fs.rmSync(uploadedFilePath);
+
+    // Respond with success message
+    res.json({ type: "success", text: "Avatar updated successfully." });
+  } catch (error) {
+    // Handle errors such as token verification or database issues
+    res.json({ type: "error", text: error.message || "An error occurred." });
+  }
 }
 
 export default uploadController;

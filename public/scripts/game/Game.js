@@ -140,7 +140,7 @@ class Game {
         this.field.player.turn = true;
         const btn = document.querySelector(".turn-submit-btn");
         btn.disabled = false;
-        let count = 10;
+        let count = 30;
         const timerText = document.querySelector(".turn-time > .turn-timer");
         this.timerId = setInterval(() => {
             let countText = count < 10 ? `0${count}` : `${count}`;
