@@ -24,14 +24,13 @@
     transition: all .5s ease;
 }
 
-.card.revealed {
-    cursor: pointer;
-}
-
 /* 2. Стили для “лицевой” стороны (face-up) */
 .card.revealed {
     /* если нужно, можно переопределить background-color */
     background: url("../../assets/background/faceup.png");
+    background-size: cover;      /* заполняет весь блок */
+    background-position: center; /* центрирует */
+    background-repeat: no-repeat;
 }
 
 /* …далее без изменений ваш существующий CSS… */
@@ -57,7 +56,7 @@
     height: 32px;
     top: -10px;
     left: -10px;
-    border-radius: 13px;
+    border-radius: 12px;
     background-color: rgba(var(--color-cost), 1);
     border: 3px solid rgba(var(--bg-primary), 1);
     color: rgba(var(--color-white), 1);
@@ -120,13 +119,13 @@
     height: 100%;
 }
 
-.card.revealed .card-img {
+.card.revealed .card-img { /* картинка на картах*/
     width: 90px;
     height: 120px;
     margin: 5px auto 0;
     border-radius: var(--border-radius-lg);
-    border: 3px solid rgba(var(--bg-primary), 1);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(var(--bg-primary), 0.3);
+    box-shadow: none;
     overflow: hidden;
 }
 
@@ -153,13 +152,13 @@
 }
 
 .card.attacker-card {
-    box-shadow: 0 0 20px 0 rgba(var(--color-attack), 1);
+    box-shadow: none;
 }
 
 .card.target-card {
-    box-shadow: 0 0 20px 0 rgba(var(--color-defense), 1);
+    box-shadow: none;
 }
 
 .card.available-card {
-    box-shadow: 0 0 20px 0 rgba(var(--color-available), 1);
+    box-shadow: none;
 }
