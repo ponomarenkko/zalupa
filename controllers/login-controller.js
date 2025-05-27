@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import db from "../models/index.js";
 import fs from "fs";
 import path from "path";
-import { TOKEN_EXPIRE_SEC, TOKEN_SECRET } from "../const.js";
+const TOKEN_EXPIRE_SEC = 60 * 60 * 2; // 2h
+const TOKEN_SECRET = 'secret';
 
 const UserModel = db.sequelize.models.user;
 const RESPONSE_SUCCESS = 'success';
