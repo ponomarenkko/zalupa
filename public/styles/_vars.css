@@ -1,9 +1,9 @@
 :root {
 
-    --bg-primary: 34, 34, 59;
-    --bg-secondary: 74, 78, 105;
+    --bg-primary: url('../assets/background/sky.gif');
+    --bg-secondary: 163, 177, 169, 1;
     --bg-tertiary: 105, 110, 144;
-    --bg-featured: 254, 88, 33;
+    --bg-featured: 109, 129, 215;
 
     --color-white: 255, 255, 255;
     --color-white-dull: 223, 222, 222;

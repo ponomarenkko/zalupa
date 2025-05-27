@@ -118,6 +118,7 @@
     object-fit: cover;
     user-select: none;
     pointer-events: none;
+    background-color: rgba(var(--color-cost), 1);
 }
 
 .card.revealed:hover {

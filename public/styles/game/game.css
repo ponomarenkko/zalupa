@@ -2,7 +2,7 @@
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(var(--bg-primary), 1);
+    background-image: var(--bg-primary);
 }
 
 .game-container--inner {
@@ -95,7 +95,7 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(var(--bg-primary), 0.8);
+    background-image: var(--bg-primary);
     z-index: 2;
     display: flex;
     flex-flow: column nowrap;

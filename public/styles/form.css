@@ -5,6 +5,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: var(--bg-primary);
 }
 
 .start-container {
@@ -19,7 +20,7 @@ body {
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(var(--bg-primary), 1);
+    background-image: var(--bg-primary);
 }
 
 .form-container--inner {
@@ -53,7 +54,7 @@ body {
     height: 50px;
     padding: 14px 18px;
     border-radius: var(--border-radius-sm);
-    background-color: rgba(var(--bg-tertiary), .5);
+    background-color: rgba(var(--bg-tertiary), 0.2);
     transition: all .3s ease;
     font-size: 16px;
     font-weight: 500;

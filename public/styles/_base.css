@@ -12,7 +12,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background-color: rgba(var(--bg-primary), 1);
+    background-image: var(--bg-primary);
 }
 
 .main-container {
@@ -22,7 +22,7 @@ body {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    background-color: rgba(var(--bg-primary), 1);
+    background-image: var(--bg-primary);
 }
 
 .top-20 {
