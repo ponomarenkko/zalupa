@@ -1,81 +1,70 @@
-.player-outer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    flex: 0 0 100px;
+/* player.css */
+
+/* Mana progress */
+.mana-progress-container {
+  text-align: center;
+}
+.mana-text {
+  display: block;
+  font-size: 1rem;
+}
+.mana-count {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+.mana-progress {
+  width: 100%;
+  height: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.mana-progress-bar {
+  height: 100%;
+  width: var(--current-mana-percentage, 0%);
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
 }
 
-.player {
-    display: flex;
-    justify-content: center;
-    flex-flow: column nowrap;
-    width: 100px;
-    height: 150px;
+/* Card container */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+.card-template {
+  background-color: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.card-template .card-image {
+  width: 100%;
+  height: auto;
+}
+.card-template .card-info {
+  padding: 0.5rem;
+  text-align: center;
 }
 
-.player-label {
-    margin-top: 10px;
-    width: 100%;
+/* Player template */
+.player-template {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-.player-nickname {
-    width: 100%;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-    color: rgba(var(--color-white-dull), 1);
-    text-shadow: var(--shadow-text);
+.player-template .player-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-bottom: 0.5rem;
 }
-
-.player-body {
-    display: flex;
-    flex-flow: column nowrap;
-    width: 100%;
-    position: relative;
-    user-select: none;
+.player-template .player-footer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
-
-.player-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    width: 38px;
-    height: 38px;
-    bottom: -10px;
-    right: -10px;
-    border-radius: 15px;
-    background-color: rgba(var(--color-health), 1);
-    border: 4px solid rgba(var(--bg-secondary), 1);
-    color: rgba(var(--color-white), 1);
-    font-size: 14px;
-    line-height: 1;
-    font-weight: 600;
-}
-
-.player-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: var(--border-radius-lg);
-    border: 3px solid rgba(var(--bg-primary), 1);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-}
-
-.player-avatar > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all .3s ease;
-}
-
-.player-avatar > img:hover {
-    transform: scale(1.1);
-    transition: all .3s ease;
-}
-
-.target-card {
-    box-shadow: 0 0 20px 0 rgba(var(--color-defense), 1);
+.player-template .player-footer .health,
+.player-template .player-footer .armor {
+  font-size: 1rem;
 }

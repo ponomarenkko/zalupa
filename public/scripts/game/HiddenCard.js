@@ -1,7 +1,6 @@
 class HiddenCard {
 
     static assetsDir = "assets";
-    static imgPlaceholder = "hero-placeholder.png"; 
     static cardCount = 0;
     constructor (name, selector) {
 
