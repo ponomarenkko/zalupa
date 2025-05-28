@@ -114,10 +114,10 @@
     user-select: none;
 }
 
-.card.hidden .card-img {
+/*.card.hidden .card-img {
     width: 100%;
     height: 100%;
-}
+}*/
 
 .card.revealed .card-img { /* картинка на картах*/
     width: 90px;

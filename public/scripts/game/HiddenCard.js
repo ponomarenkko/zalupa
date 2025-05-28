@@ -51,8 +51,7 @@ class HiddenCard {
         cardContainer.appendChild(card);
 
         let img = document.querySelector(`#${this.cardID} .card-img > img`);
-        img.setAttribute("src", `${HiddenCard.assetsDir}/${HiddenCard.imgPlaceholder}`);
-
+        
         return card;
 
     }
