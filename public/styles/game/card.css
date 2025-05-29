@@ -47,23 +47,7 @@
     margin-top: 3px;
 }
 
-.card.revealed > .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    top: -10px;
-    left: -10px;
-    border-radius: 12px;
-    background-color: rgba(var(--color-cost), 1);
-    border: 3px solid rgba(var(--bg-primary), 1);
-    color: rgba(var(--color-white), 1);
-    font-size: 13px;
-    font-weight: 600;
-    user-select: none;
-}
+
 
 .card.revealed > .card-footer {
     display: flex;
@@ -80,7 +64,7 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    border-radius: 8px;
+    border-radius: 45px;
     font-size: 12px;
     color: white;
     font-weight: 600;
