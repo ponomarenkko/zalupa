@@ -8,8 +8,8 @@ class Player {
     static START_HP = 30;
     static MAX_MANA = 10;
     static START_MANA = 0;
-    static MAX_CARDS_IN_HAND = 7;
-    static MAX_CARDS_ON_BOARD = 5;
+    static MAX_CARDS_IN_HAND = 6;
+    static MAX_CARDS_ON_BOARD = 4;
 
     constructor (user, oppSocket) {
         this.socket = user.socket;

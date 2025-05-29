@@ -9,13 +9,12 @@
 .game-deck {
     display: flex;
     align-items: center;
-    width: 100%;
+   
 }
 
 .player-deck-card,
 .opponent-deck-card {
     position: relative;
-    transform: rotateZ(-270deg) translateY(-35px);
     transition: all .3s ease;
 }
 
@@ -45,16 +44,11 @@
     padding: 0 40px;
 }
 
-.game-deck {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
+
 
 .player-deck-card,
 .opponent-deck-card {
     position: relative;
-    transform: rotateZ(-270deg) translateY(-35px);
     transition: all .3s ease;
 }
 
@@ -108,11 +102,6 @@
     justify-content: center;
 }
 
-.turn-submit {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
 
 .mana-progress-container {
     justify-content: flex-end;
@@ -180,14 +169,10 @@
     justify-content: center;
 }
 
-.turn-submit {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
 
 .mana-progress-container {
-    justify-content: flex-end;
+    display: flex;
+    justify-content: center;
     user-select: none;
 }
 
@@ -220,4 +205,10 @@
     font-size: 30px;
     opacity: .7;
     font-weight: 500;
+}
+
+.sidebar-item.turn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

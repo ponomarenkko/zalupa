@@ -99,6 +99,7 @@
 
 .card > .card-body {
     width: 100%;
+    margin-bottom: 15px;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;

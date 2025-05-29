@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 .mana-progress-bar {
-  height: 100%;
+  height: 10%;
   width: var(--current-mana-percentage, 0%);
   background-color: var(--primary-color);
   transition: width 0.3s ease;
@@ -28,9 +28,10 @@
 
 /* Card container */
 .card-container {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 0.5rem;
+  margin-bottom: 20px;
 }
 .card-template {
   background-color: transparent;
@@ -67,4 +68,19 @@
 .player-template .player-footer .health,
 .player-template .player-footer .armor {
   font-size: 1rem;
+}
+
+.player-container{
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 30%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.player-container .player-outer{
+  display: flex;
+  justify-content: flex-end;
 }
